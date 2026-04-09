@@ -1,0 +1,15 @@
+.send-card {
+  max-width: 500px;
+  margin: 0 auto;
+  background: white;
+  border-radius: var(--radius-xl);
+  padding: 2rem;
+  box-shadow: var(--shadow-md);
+}
+.send-card input, .send-card textarea {
+  border-radius: 1rem;
+  background: #fafcff;
+}
+.send-card textarea {
+  resize: vertical;
+}

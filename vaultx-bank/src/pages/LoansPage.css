@@ -1,0 +1,223 @@
+.loans-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+/* Apply Loan Form Card */
+.loan-apply-card {
+  background: white;
+  border-radius: 1.5rem;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+}
+.loan-apply-card h2 {
+  color: #0a2540;
+  margin-bottom: 0.5rem;
+}
+.loan-limit {
+  color: #0066cc;
+  font-size: 0.85rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #e2e8f0;
+}
+.form-group {
+  margin-bottom: 1rem;
+}
+.form-group label {
+  display: block;
+  font-weight: 600;
+  color: #0a2540;
+  margin-bottom: 0.25rem;
+}
+.form-group input, .form-group select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 1rem;
+  font-size: 1rem;
+}
+.apply-loan-btn {
+  background: linear-gradient(135deg, #0066cc, #0a2540);
+  color: white;
+  border: none;
+  padding: 0.85rem;
+  border-radius: 2rem;
+  font-weight: 600;
+  width: 100%;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-top: 1rem;
+}
+.apply-loan-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,102,204,0.3);
+}
+
+/* Loans Section */
+.loans-section {
+  margin-top: 2rem;
+}
+.loans-section h3 {
+  font-size: 1.5rem;
+  color: #0a2540;
+  margin-bottom: 1rem;
+}
+.loans-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Loan Card Base */
+.loan-card {
+  background: white;
+  border-radius: 1.25rem;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.loan-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px -8px rgba(0,0,0,0.15);
+}
+.loan-card.active {
+  border-top: 4px solid #0066cc;
+}
+.loan-card.paid {
+  border-top: 4px solid #10b981;
+  opacity: 0.85;
+}
+.loan-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.25rem;
+  background: #f8fafc;
+  border-bottom: 1px solid #e2e8f0;
+}
+.loan-amount {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #0a2540;
+}
+.loan-status-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 2rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.loan-status-badge.active {
+  background: #dbeafe;
+  color: #0066cc;
+}
+.loan-status-badge.overdue {
+  background: #fee2e2;
+  color: #dc2626;
+}
+.loan-status-badge.paid {
+  background: #d1fae5;
+  color: #059669;
+}
+.loan-card-body {
+  padding: 1.25rem;
+}
+.loan-reason {
+  font-size: 0.9rem;
+  color: #64748b;
+  margin-bottom: 1rem;
+  font-style: italic;
+}
+.loan-details-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+.detail-item {
+  display: flex;
+  flex-direction: column;
+}
+.detail-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  color: #64748b;
+  letter-spacing: 0.5px;
+}
+.detail-value {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #1e293b;
+}
+.detail-value.highlight {
+  color: #0066cc;
+  font-size: 1.1rem;
+}
+.overdue-text {
+  color: #dc2626;
+}
+.progress-section {
+  margin: 1rem 0;
+}
+.progress-label {
+  font-size: 0.75rem;
+  color: #64748b;
+  margin-bottom: 0.25rem;
+}
+.progress-bar-bg {
+  background: #e2e8f0;
+  border-radius: 1rem;
+  height: 8px;
+  overflow: hidden;
+}
+.progress-bar-fill {
+  background: linear-gradient(90deg, #0066cc, #10b981);
+  height: 100%;
+  border-radius: 1rem;
+  transition: width 0.3s;
+}
+.progress-percent {
+  font-size: 0.7rem;
+  color: #0066cc;
+  margin-top: 0.25rem;
+  text-align: right;
+}
+.loan-card-footer {
+  padding: 1rem 1.25rem;
+  background: #f8fafc;
+  border-top: 1px solid #e2e8f0;
+  display: flex;
+  gap: 0.75rem;
+}
+.loan-card-footer input {
+  flex: 2;
+  padding: 0.6rem 1rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 2rem;
+  font-size: 0.9rem;
+}
+.repay-btn {
+  flex: 1;
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  border: none;
+  padding: 0.6rem 1rem;
+  border-radius: 2rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.repay-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(16,185,129,0.3);
+}
+
+@media (max-width: 768px) {
+  .loans-grid {
+    grid-template-columns: 1fr;
+  }
+}
