@@ -1,4 +1,4 @@
-/* .add-money-container {
+.add-money-container {
   min-height: 80vh;
   display: flex;
   align-items: center;
@@ -102,4 +102,4 @@
 .add-money-btn:hover {
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
-} */
+}
