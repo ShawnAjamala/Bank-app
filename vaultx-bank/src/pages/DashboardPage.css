@@ -1,4 +1,4 @@
-Dashboard Container
+/* Dashboard Container */
 .dashboard-container {
   max-width: 1280px;
   margin: 0 auto;
@@ -50,7 +50,7 @@ Dashboard Container
   background: #fff7e6;
   border-radius: 1rem;
   padding: 1.2rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
   border-left: 4px solid #f59e0b;
 }
 .notifications-card h3 {
@@ -98,6 +98,7 @@ Dashboard Container
   gap: 1rem;
   box-shadow: 0 2px 8px rgba(0,0,0,0.04);
   transition: transform 0.2s, box-shadow 0.2s;
+  margin: 0;
 }
 .stat-card:hover {
   transform: translateY(-2px);
@@ -163,6 +164,7 @@ Dashboard Container
   transition: all 0.2s;
   background: #f8fafc;
   color: #1e293b;
+  margin: 0;
 }
 .action:hover {
   transform: translateY(-2px);
@@ -205,6 +207,7 @@ Dashboard Container
 .section-header h2 {
   font-size: 1.3rem;
   color: #0a2540;
+  margin: 0;
 }
 .view-all-btn {
   background: none;
@@ -212,10 +215,12 @@ Dashboard Container
   color: #0066cc;
   font-weight: 600;
   cursor: pointer;
+  padding: 0;
 }
 .transactions-list {
   max-height: 400px;
   overflow-y: auto;
+  margin-top: 0.5rem;
 }
 .empty-state {
   text-align: center;
@@ -228,6 +233,7 @@ Dashboard Container
   background: linear-gradient(135deg, #e6f2ff, #dbeafe);
   border-radius: 1.5rem;
   padding: 1.5rem;
+  margin-bottom: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -237,10 +243,11 @@ Dashboard Container
 .cta-content h3 {
   font-size: 1.3rem;
   color: #0a2540;
-  margin-bottom: 0.25rem;
+  margin: 0 0 0.25rem 0;
 }
 .cta-content p {
   color: #334155;
+  margin: 0;
 }
 .cta-button {
   background: #0066cc;
@@ -268,6 +275,7 @@ Dashboard Container
   }
   .stats-grid {
     gap: 1rem;
+    margin-bottom: 1.5rem;
   }
   .action-grid {
     grid-template-columns: 1fr;
