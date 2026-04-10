@@ -1,6 +1,6 @@
 import React from 'react';
 import './Footer.css';
-
+import { Phone } from 'lucide-react';
 const Footer = () => {
   return (
     <footer className="footer">
@@ -9,9 +9,9 @@ const Footer = () => {
           <h3>Vault<span>Ex</span></h3>
           <p>Secure digital banking for the modern world. Your finances, simplified.</p>
           <div className="footer-contact">
-            <p> +1 (800) 123-4567</p>
-            <p> support@vaultex.com</p>
-            <p> 123 Finance St, New York, NY 10001</p>
+            <p> Contact :+1 (800) 123-4567</p>
+            <p> Email :support@vaultex.com</p>
+            <p> Address :123 Finance St, New York, NY 10001</p>
           </div>
         </div>
         

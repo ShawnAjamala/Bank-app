@@ -122,7 +122,7 @@ const Navbar = () => {
         <button className="hamburger" onClick={toggleSidebar}>☰</button>
       </nav>
 
-      {/* Mobile Sidebar */}
+      {/* Mobile sidebar */}
       <div className={`sidebar ${sidebarOpen ? 'open' : ''}`}>
         <button className="close-sidebar" onClick={closeSidebar}>✕</button>
         {!currentUser ? (
@@ -152,8 +152,23 @@ const Navbar = () => {
       </div>
       <div className={`overlay ${sidebarOpen ? 'open' : ''}`} onClick={closeSidebar}></div>
 
-      <Modal isOpen={showLogoutModal} onClose={() => setShowLogoutModal(false)} title="Logout" message="Are you sure you want to log out?" type="warning" onConfirm={confirmLogout} />
-      <Modal isOpen={showDeleteModal} onClose={() => setShowDeleteModal(false)} title="Permanently Delete Account" message="This action cannot be undone. All your data will be lost forever." type="danger" onConfirm={confirmDelete} confirmText="Yes, Delete" />
+      <Modal
+        isOpen={showLogoutModal}
+        onClose={() => setShowLogoutModal(false)}
+        title="Logout"
+        message="Are you sure you want to log out?"
+        type="warning"
+        onConfirm={confirmLogout}
+      />
+      <Modal
+        isOpen={showDeleteModal}
+        onClose={() => setShowDeleteModal(false)}
+        title="Permanently Delete Account"
+        message="This action cannot be undone. All your data will be lost forever."
+        type="danger"
+        onConfirm={confirmDelete}
+        confirmText="Yes, Delete"
+      />
     </>
   );
 };
