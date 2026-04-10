@@ -71,7 +71,7 @@ const DashboardPage = () => {
           <p>Account: {currentUser.accountNumber}</p>
         </div>
         <button className="hero-send-btn" onClick={() => navigate('/send')}>
-          Send Money →
+          Send Money 
         </button>
       </div>
 
