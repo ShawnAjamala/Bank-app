@@ -3,6 +3,17 @@ import { useNavigate } from 'react-router-dom';
 import { useBank } from '../context/BankContext';
 import TransactionItem from '../components/TransactionItem';
 import './DashboardPage.css';
+import { AppWindow } from "lucide-react"
+import { HandCoins } from 'lucide-react';
+import { BanknoteArrowUp } from 'lucide-react';
+import { BanknoteArrowDown } from 'lucide-react';
+import { Landmark } from 'lucide-react';
+import { SquarePlus } from 'lucide-react';
+import { WalletMinimal } from 'lucide-react';
+import { ClipboardClock } from 'lucide-react';
+import { PiggyBank } from 'lucide-react';
+
+
 
 const DashboardPage = () => {
   const { currentUser } = useBank();
@@ -19,13 +30,13 @@ const DashboardPage = () => {
         const dueDate = new Date(loan.dueDate);
         const daysLeft = Math.ceil((dueDate - today) / (1000 * 60 * 60 * 24));
         if (daysLeft < 0)
-          return { type: 'warning', message: `⚠️ Loan $${loan.amount} is OVERDUE! Please repay.` };
+          return { type: 'warning', message: ` Loan $${loan.amount} is OVERDUE! Please repay.` };
         if (daysLeft <= 7)
-          return { type: 'warning', message: `🔔 Loan $${loan.amount} due in ${daysLeft} day(s).` };
+          return { type: 'warning', message: `Loan $${loan.amount} due in ${daysLeft} day(s).` };
         if (daysLeft <= 14)
           return {
             type: 'info',
-            message: `📅 Loan $${loan.amount} due on ${dueDate.toLocaleDateString()}.`,
+            message: `Loan $${loan.amount} due on ${dueDate.toLocaleDateString()}.`,
           };
         return null;
       })
@@ -56,7 +67,7 @@ const DashboardPage = () => {
       {/* Hero Section */}
       <div className="hero-section">
         <div className="hero-content">
-          <h1>Welcome back, {currentUser.name} 👋</h1>
+          <h1>Welcome back, {currentUser.name}<AppWindow /> </h1>
           <p>Account: {currentUser.accountNumber}</p>
         </div>
         <button className="hero-send-btn" onClick={() => navigate('/send')}>
@@ -67,7 +78,7 @@ const DashboardPage = () => {
       {/* Loan Notifications */}
       {notifications.length > 0 && (
         <div className="notifications-card">
-          <h3>📢 Loan Reminders</h3>
+          <h3>Loan Reminders</h3>
           {notifications.map((notif, idx) => (
             <div key={idx} className={`notification ${notif.type}`}>
               <span>{notif.message}</span>
@@ -82,28 +93,29 @@ const DashboardPage = () => {
       {/* Stats Grid */}
       <div className="stats-grid">
         <div className="stat-card balance-card">
-          <div className="stat-icon">💰</div>
+          <div className="stat-icon"><HandCoins />
+          </div>
           <div className="stat-info">
             <h3>Total Balance</h3>
             <p className="stat-value">${currentUser.balance.toFixed(2)}</p>
           </div>
         </div>
         <div className="stat-card sent-card">
-          <div className="stat-icon">📤</div>
+          <div className="stat-icon"><BanknoteArrowUp /></div>
           <div className="stat-info">
             <h3>Total Sent</h3>
             <p className="stat-value">${totalSent.toFixed(2)}</p>
           </div>
         </div>
         <div className="stat-card received-card">
-          <div className="stat-icon">📥</div>
+          <div className="stat-icon"><BanknoteArrowDown /></div>
           <div className="stat-info">
             <h3>Total Received</h3>
             <p className="stat-value">${totalReceived.toFixed(2)}</p>
           </div>
         </div>
         <div className="stat-card loans-card">
-          <div className="stat-icon">🏦</div>
+          <div className="stat-icon"><Landmark /></div>
           <div className="stat-info">
             <h3>Active Loans</h3>
             <p className="stat-value">{activeLoansCount}</p>
@@ -116,19 +128,19 @@ const DashboardPage = () => {
         <h2>Quick Actions</h2>
         <div className="action-grid">
           <button className="action send-action" onClick={() => navigate('/send')}>
-            <span className="action-icon">💸</span>
+            <span className="action-icon"> <WalletMinimal /> </span>
             <span>Send Money</span>
           </button>
           <button className="action add-action" onClick={() => navigate('/add-money')}>
-            <span className="action-icon">➕</span>
+            <span className="action-icon"> <SquarePlus /> </span>
             <span>Add Money</span>
           </button>
           <button className="action loan-action" onClick={() => navigate('/loans')}>
-            <span className="action-icon">🏦</span>
+            <span className="action-icon"><PiggyBank />  </span>
             <span>Apply Loan</span>
           </button>
           <button className="action history-action" onClick={() => navigate('/transactions')}>
-            <span className="action-icon">📜</span>
+            <span className="action-icon">  <ClipboardClock />   </span>
             <span>Transaction History</span>
           </button>
         </div>

@@ -82,7 +82,7 @@
   text-decoration: underline;
 }
 
-/* Stats Grid */
+/* Stats Grid - Full Background Colors */
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -90,7 +90,6 @@
   margin-bottom: 2rem;
 }
 .stat-card {
-  background: white;
   border-radius: 1rem;
   padding: 1.2rem;
   display: flex;
@@ -111,25 +110,59 @@
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 1px;
-  color: #64748b;
   margin-bottom: 0.25rem;
 }
 .stat-value {
   font-size: 1.6rem;
   font-weight: 700;
-  color: #0a2540;
+}
+
+/* Balance Card – Blue theme */
+.balance-card {
+  background: #e0f2fe;
+  border: 1px solid #bae6fd;
+}
+.balance-card .stat-info h3 {
+  color: #0369a1;
 }
 .balance-card .stat-value {
-  color: #0066cc;
+  color: #0284c7;
+}
+
+/* Sent Card – Red theme */
+.sent-card {
+  background: #fee2e2;
+  border: 1px solid #fecaca;
+}
+.sent-card .stat-info h3 {
+  color: #b91c1c;
 }
 .sent-card .stat-value {
-  color: #ef4444;
+  color: #dc2626;
+}
+
+/* Received Card – Green theme */
+.received-card {
+  background: #dcfce7;
+  border: 1px solid #bbf7d0;
+}
+.received-card .stat-info h3 {
+  color: #166534;
 }
 .received-card .stat-value {
-  color: #10b981;
+  color: #16a34a;
+}
+
+/* Loans Card – Orange theme */
+.loans-card {
+  background: #ffedd5;
+  border: 1px solid #fed7aa;
+}
+.loans-card .stat-info h3 {
+  color: #9a3412;
 }
 .loans-card .stat-value {
-  color: #f59e0b;
+  color: #ea580c;
 }
 
 /* Quick Actions */

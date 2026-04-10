@@ -1,3 +1,5 @@
+
+
 .footer {
   background: var(--primary-dark);
   color: #cbd5e1;
@@ -5,6 +7,7 @@
   margin-top: auto;
   border-top: 1px solid rgba(255,255,255,0.05);
 }
+
 .footer-container {
   max-width: 1280px;
   margin: 0 auto;
@@ -12,20 +15,34 @@
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 2rem;
 }
+
 .footer-brand h3 {
   color: white;
   font-size: 1.6rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
 }
+
 .footer-brand span {
   color: var(--primary-blue);
 }
+
 .footer-brand p {
   font-size: 0.85rem;
   line-height: 1.5;
   color: #94a3b8;
+  margin-bottom: 1rem;
 }
+
+.footer-contact p {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  margin-bottom: 0.5rem;
+  color: #94a3b8;
+}
+
 .footer-section h4 {
   color: white;
   font-size: 1.1rem;
@@ -34,6 +51,7 @@
   position: relative;
   display: inline-block;
 }
+
 .footer-section h4::after {
   content: '';
   position: absolute;
@@ -43,32 +61,56 @@
   height: 2px;
   background: var(--primary-blue);
 }
+
 .footer-section ul {
   list-style: none;
+  padding: 0;
 }
+
 .footer-section li {
   margin-bottom: 0.6rem;
 }
+
 .footer-section a {
   color: #94a3b8;
   text-decoration: none;
   font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: color 0.2s;
 }
+
 .footer-section a:hover {
   color: white;
 }
+
 .social-links {
   display: flex;
   gap: 1rem;
   margin-top: 0.5rem;
 }
+
 .social-links a {
-  font-size: 1.4rem;
-  color: #94a3b8;
+  background: rgba(255,255,255,0.1);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, transform 0.1s;
 }
+
 .social-links a:hover {
-  color: var(--primary-blue);
+  background: var(--primary-blue);
+  transform: translateY(-2px);
 }
+
+.social-links svg {
+  color: white;
+}
+
 .footer-bottom {
   text-align: center;
   padding-top: 2rem;
@@ -77,6 +119,7 @@
   font-size: 0.8rem;
   color: #64748b;
 }
+
 @media (max-width: 768px) {
   .footer {
     padding: 2rem 1rem 1rem;

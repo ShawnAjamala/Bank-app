@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useBank } from '../context/BankContext';
 import Modal from '../components/Modal';
 import './LoansPage.css';
-
+import { PiggyBank } from 'lucide-react';
 const LoansPage = () => {
   const { currentUser, applyLoan, repayLoan } = useBank();
   const [amount, setAmount] = useState('');
@@ -56,7 +56,7 @@ const LoansPage = () => {
     <div className="loans-container">
       <div className="loan-apply-card">
         <h2>Apply for a Loan</h2>
-        <p className="loan-limit">💰 Loan limit: up to $500,000 | Interest: 5% flat</p>
+        <p className="loan-limit">  <PiggyBank />  Loan limit: up to $500,000 | Interest: 5% flat</p>
         <form onSubmit={handleApplyLoan}>
           <div className="form-group">
             <label>Loan Amount ($)</label>
