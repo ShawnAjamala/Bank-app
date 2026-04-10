@@ -15,13 +15,9 @@ const AddMoneyPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     try {
-      // Verify PIN
-      if (!pin || pin.toString() !== currentUser?.pin) {
-        throw new Error("Invalid transaction PIN");
-      }
       const amt = parseFloat(amount);
       if (isNaN(amt) || amt <= 0) throw new Error("Please enter a valid positive amount");
-      addMoney(amt);
+      addMoney(amt, pin);
       showModal('Success', `$${amt} added to your account!`, 'success');
       setAmount('');
       setPin('');
@@ -44,26 +40,11 @@ const AddMoneyPage = () => {
         <form onSubmit={handleSubmit}>
           <div className="input-group">
             <label>Amount to Add ($)</label>
-            <input 
-              type="number" 
-              placeholder="Enter amount" 
-              value={amount} 
-              onChange={(e) => setAmount(e.target.value)} 
-              min="1" 
-              step="1" 
-              required 
-            />
+            <input type="number" placeholder="Enter amount" value={amount} onChange={(e) => setAmount(e.target.value)} min="1" step="1" required />
           </div>
           <div className="input-group">
             <label>Transaction PIN</label>
-            <input 
-              type="password" 
-              placeholder="Enter your 4-digit PIN" 
-              value={pin} 
-              onChange={(e) => setPin(e.target.value)} 
-              maxLength="4" 
-              required 
-            />
+            <input type="password" placeholder="Enter your 4-digit PIN" value={pin} onChange={(e) => setPin(e.target.value)} maxLength="4" required />
           </div>
           <button type="submit" className="add-money-btn">Add Money</button>
         </form>

@@ -221,3 +221,36 @@
     grid-template-columns: 1fr;
   }
 }
+
+@media (max-width: 1024px) {
+  .loans-grid {
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .loans-container {
+    padding: 1rem;
+  }
+  .loan-apply-card {
+    padding: 1.5rem;
+  }
+  .loans-grid {
+    grid-template-columns: 1fr;
+  }
+  .loan-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  .loan-details-grid {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+  .loan-card-footer {
+    flex-direction: column;
+  }
+  .loan-card-footer input, .repay-btn {
+    width: 100%;
+  }
+}

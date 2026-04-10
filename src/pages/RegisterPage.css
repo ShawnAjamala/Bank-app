@@ -18,3 +18,14 @@
 .register-card label {
   margin-top: 0.5rem;
 }
+
+@media (max-width: 768px) {
+  .register-card {
+    max-width: 100%;
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+  .register-header h2 {
+    font-size: 1.5rem;
+  }
+}

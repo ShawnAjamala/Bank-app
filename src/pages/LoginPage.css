@@ -109,3 +109,14 @@
   font-size: 0.8rem;
   color: #64748b;
 }
+
+@media (max-width: 768px) {
+  .login-card {
+    max-width: 100%;
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+  .login-header h2 {
+    font-size: 1.5rem;
+  }
+}

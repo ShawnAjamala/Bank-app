@@ -13,3 +13,14 @@
 .send-card textarea {
   resize: vertical;
 }
+
+@media (max-width: 768px) {
+  .send-card {
+    max-width: 100%;
+    margin: 0;
+    padding: 1.5rem;
+  }
+  .send-card input, .send-card textarea {
+    font-size: 0.9rem;
+  }
+}

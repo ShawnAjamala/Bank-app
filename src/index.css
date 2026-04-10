@@ -119,3 +119,15 @@ label {
   margin-bottom: 0.25rem;
   font-size: 0.85rem;
 }
+
+
+/* Responsive utilities */
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+  .btn {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+  }
+}

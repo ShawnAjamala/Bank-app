@@ -3,12 +3,14 @@ import { v4 as uuidv4 } from 'uuid';
 
 const BankContext = createContext();
 
+// Helper functions
 const generateAccountNumber = () => Math.floor(10000000 + Math.random() * 90000000).toString();
 
+// Load users from localStorage (always fresh)
 const loadUsers = () => {
   const stored = localStorage.getItem('bankUsers');
   if (stored) return JSON.parse(stored);
-  // Demo user only on very first load
+  // Create demo user only once
   const demoUser = {
     id: uuidv4(),
     name: "John Demo",
@@ -29,13 +31,17 @@ const loadUsers = () => {
   return [demoUser];
 };
 
-const saveUsers = (users) => localStorage.setItem('bankUsers', JSON.stringify(users));
+// Save users to localStorage
+const saveUsers = (users) => {
+  localStorage.setItem('bankUsers', JSON.stringify(users));
+};
 
 export const BankProvider = ({ children }) => {
   const [users, setUsers] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // Load data on mount
   useEffect(() => {
     const loadedUsers = loadUsers();
     setUsers(loadedUsers);
@@ -47,14 +53,14 @@ export const BankProvider = ({ children }) => {
     setLoading(false);
   }, []);
 
+  // Save users whenever they change
   useEffect(() => {
-    if (users.length) saveUsers(users);
-    else if (users.length === 0) {
-      // If array is empty, save empty array (no demo user recreated)
-      saveUsers([]);
+    if (users.length > 0) {
+      saveUsers(users);
     }
   }, [users]);
 
+  // Helper: update a user in the array and optionally update currentUser
   const updateUser = (updatedUser) => {
     const newUsers = users.map(u => u.id === updatedUser.id ? updatedUser : u);
     setUsers(newUsers);
@@ -65,8 +71,12 @@ export const BankProvider = ({ children }) => {
     return newUsers;
   };
 
+  // Register new user (auto-login)
   const register = (name, email, pin, initialDeposit = 100) => {
-    if (users.find(u => u.email === email)) throw new Error("Email already registered");
+    // Check for duplicate email
+    if (users.some(u => u.email === email)) {
+      throw new Error("Email already registered");
+    }
     const newUser = {
       id: uuidv4(),
       name,
@@ -84,10 +94,16 @@ export const BankProvider = ({ children }) => {
       }],
       loans: []
     };
-    setUsers(prev => [...prev, newUser]);
+    const newUsers = [...users, newUser];
+    setUsers(newUsers);
+    saveUsers(newUsers);
+    // Auto-login
+    setCurrentUser(newUser);
+    localStorage.setItem('currentUserEmail', newUser.email);
     return newUser;
   };
 
+  // Login user
   const login = (email, pin) => {
     const user = users.find(u => u.email === email && u.pin === pin.toString());
     if (!user) throw new Error("Invalid email or PIN");
@@ -96,13 +112,17 @@ export const BankProvider = ({ children }) => {
     return user;
   };
 
+  // Logout (only clears session, not data)
   const logout = () => {
     setCurrentUser(null);
     localStorage.removeItem('currentUserEmail');
   };
 
+  // Generic transaction handler
   const makeTransaction = (user, amount, type, description, otherParty = null) => {
-    if (type === 'withdraw' && user.balance < amount) throw new Error("Insufficient balance");
+    if (type === 'withdraw' && user.balance < amount) {
+      throw new Error("Insufficient balance");
+    }
     const newBalance = type === 'deposit' ? user.balance + amount : user.balance - amount;
     const transaction = {
       id: uuidv4(),
@@ -113,11 +133,16 @@ export const BankProvider = ({ children }) => {
       balanceAfter: newBalance,
       otherParty: otherParty || null
     };
-    const updatedUser = { ...user, balance: newBalance, transactions: [transaction, ...user.transactions] };
+    const updatedUser = {
+      ...user,
+      balance: newBalance,
+      transactions: [transaction, ...user.transactions]
+    };
     updateUser(updatedUser);
     return updatedUser;
   };
 
+  // Send money
   const sendMoney = (recipientAccountNumber, amount, note, pin) => {
     if (!currentUser) throw new Error("Not logged in");
     if (currentUser.pin !== pin.toString()) throw new Error("Invalid transaction PIN");
@@ -133,12 +158,15 @@ export const BankProvider = ({ children }) => {
     return currentUser;
   };
 
-  const addMoney = (amount) => {
+  // Add money (requires PIN)
+  const addMoney = (amount, pin) => {
     if (!currentUser) throw new Error("Not logged in");
+    if (currentUser.pin !== pin.toString()) throw new Error("Invalid transaction PIN");
     if (amount <= 0) throw new Error("Amount must be positive");
     return makeTransaction(currentUser, amount, 'deposit', 'Cash deposit (ATM)');
   };
 
+  // Apply for a loan
   const applyLoan = (amount, reason, tenureMonths) => {
     if (!currentUser) throw new Error("Not logged in");
     if (amount > 500000) throw new Error(`Loan amount exceeds limit. Maximum loan: $500,000`);
@@ -181,6 +209,7 @@ export const BankProvider = ({ children }) => {
     return updatedUser;
   };
 
+  // Repay loan
   const repayLoan = (loanId, amount) => {
     if (!currentUser) throw new Error("Not logged in");
     if (amount <= 0) throw new Error("Repayment amount must be positive");
@@ -209,7 +238,7 @@ export const BankProvider = ({ children }) => {
         id: uuidv4(),
         type: "withdraw",
         amount,
-        description: `Loan repayment for loan ID ${loanId.substring(0,6)}`,
+        description: `Loan repayment for loan ${loanId.substring(0,6)}`,
         date: new Date().toISOString(),
         balanceAfter: newBalance,
       }, ...currentUser.transactions]
@@ -218,24 +247,18 @@ export const BankProvider = ({ children }) => {
     return updatedUser;
   };
 
-  // ✅ FIXED: Permanently delete account using functional update
+  // Delete account – permanently remove from localStorage
   const deleteAccount = () => {
     if (!currentUser) throw new Error("No user logged in");
-    
-    setUsers(prevUsers => {
-      const newUsers = prevUsers.filter(u => u.id !== currentUser.id);
-      // Immediately save to localStorage
-      localStorage.setItem('bankUsers', JSON.stringify(newUsers));
-      return newUsers;
-    });
-    
-    // Clear session
+    const newUsers = users.filter(u => u.id !== currentUser.id);
+    setUsers(newUsers);
+    saveUsers(newUsers);
     localStorage.removeItem('currentUserEmail');
     setCurrentUser(null);
-    
     return true;
   };
 
+  // Filter transactions
   const getFilteredTransactions = (typeFilter = 'all') => {
     if (!currentUser) return [];
     if (typeFilter === 'all') return currentUser.transactions;
