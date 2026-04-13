@@ -1,9 +1,16 @@
+// Import React core library
 import React from 'react';
+// Import navigation hook for programmatic routing
 import { useNavigate } from 'react-router-dom';
+// Import custom hook to access banking context (currentUser)
 import { useBank } from '../context/BankContext';
+// Import component that displays a single transaction row
 import TransactionItem from '../components/TransactionItem';
+// Import component-specific CSS styles
 import './DashboardPage.css';
-import { AppWindow } from "lucide-react"
+
+// Import icons from Lucide React for visual enhancement
+import { AppWindow } from "lucide-react";
 import { HandCoins } from 'lucide-react';
 import { BanknoteArrowUp } from 'lucide-react';
 import { BanknoteArrowDown } from 'lucide-react';
@@ -13,16 +20,21 @@ import { WalletMinimal } from 'lucide-react';
 import { ClipboardClock } from 'lucide-react';
 import { PiggyBank } from 'lucide-react';
 
-
-
 const DashboardPage = () => {
+  // Get the currently logged-in user from the banking context
   const { currentUser } = useBank();
+  // Hook to navigate to different routes (e.g., /send, /loans)
   const navigate = useNavigate();
 
+  // Show a loading message while currentUser is not yet available
   if (!currentUser) return <div className="container">Loading...</div>;
 
-  // Loan notifications (due within 7 days or overdue)
+  // Function that checks all active loans and returns notifications for those:
+  // - overdue (days left < 0)
+  // - due within 7 days
+  // - due within 14 days (info only)
   const getLoanNotifications = () => {
+    // Filter only loans that are still active (not paid)
     const activeLoans = currentUser.loans.filter(l => l.status === 'active');
     const today = new Date();
     return activeLoans
@@ -38,18 +50,22 @@ const DashboardPage = () => {
             type: 'info',
             message: `Loan $${loan.amount} due on ${dueDate.toLocaleDateString()}.`,
           };
-        return null;
+        return null; // no notification needed for loans with more than 14 days left
       })
-      .filter(Boolean);
+      .filter(Boolean); // remove null entries
   };
 
+  // Get the list of notifications to display
   const notifications = getLoanNotifications();
+  // Get the five most recent transactions (newest first because context stores them in reverse order)
   const lastFiveTransactions = currentUser.transactions.slice(0, 5);
 
+  // Calculate total amount sent (withdrawals that are NOT loan repayments)
   const totalSent = currentUser.transactions
     .filter(tx => tx.type === 'withdraw' && !tx.description.includes('Loan repayment'))
     .reduce((sum, tx) => sum + tx.amount, 0);
 
+  // Calculate total amount received (deposits that are NOT loan disbursements, initial deposit, or cash deposit)
   const totalReceived = currentUser.transactions
     .filter(
       tx =>
@@ -60,11 +76,12 @@ const DashboardPage = () => {
     )
     .reduce((sum, tx) => sum + tx.amount, 0);
 
+  // Count how many active loans the user currently has
   const activeLoansCount = currentUser.loans.filter(l => l.status === 'active').length;
 
   return (
     <div className="dashboard-container">
-      {/* Hero Section */}
+      {/* Hero Section – welcome message and quick send button */}
       <div className="hero-section">
         <div className="hero-content">
           <h1>Welcome back, {currentUser.name}<AppWindow /> </h1>
@@ -75,7 +92,7 @@ const DashboardPage = () => {
         </button>
       </div>
 
-      {/* Loan Notifications */}
+      {/* Loan Notifications – only shown if there are any active loans with approaching due dates */}
       {notifications.length > 0 && (
         <div className="notifications-card">
           <h3>Loan Reminders</h3>
@@ -90,11 +107,10 @@ const DashboardPage = () => {
         </div>
       )}
 
-      {/* Stats Grid */}
+      {/* Stats Grid – four cards displaying key financial metrics */}
       <div className="stats-grid">
         <div className="stat-card balance-card">
-          <div className="stat-icon"><HandCoins />
-          </div>
+          <div className="stat-icon"><HandCoins /></div>
           <div className="stat-info">
             <h3>Total Balance</h3>
             <p className="stat-value">${currentUser.balance.toFixed(2)}</p>
@@ -123,7 +139,7 @@ const DashboardPage = () => {
         </div>
       </div>
 
-      {/* Quick Actions */}
+      {/* Quick Actions – buttons that navigate to the main banking features */}
       <div className="quick-actions">
         <h2>Quick Actions</h2>
         <div className="action-grid">
@@ -146,7 +162,7 @@ const DashboardPage = () => {
         </div>
       </div>
 
-      {/* Recent Transactions */}
+      {/* Recent Transactions – shows the latest 5 transactions with a link to see all */}
       <div className="recent-transactions">
         <div className="section-header">
           <h2>Recent Transactions</h2>
@@ -163,7 +179,7 @@ const DashboardPage = () => {
         </div>
       </div>
 
-      {/* Loan CTA */}
+      {/* Loan Call‑to‑Action – encourages users to apply for a loan if needed */}
       <div className="loan-cta">
         <div className="cta-content">
           <h3>Need a loan?</h3>
